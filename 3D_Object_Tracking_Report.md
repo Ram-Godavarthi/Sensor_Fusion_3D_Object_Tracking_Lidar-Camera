@@ -3,49 +3,49 @@
 **FP.1 Match 3D Objects
 Criteria: Implement the method "matchBoundingBoxes", which takes as input both the previous and the current data frames and provides as output the ids of the matched regions of interest (the boxID property). Matches must be the ones with the highest number of keypoint correspondences.**
 
--Solution: To accomplish this task, I have taken help of "multimap" function as suggestd in the classroom to store the bouding box ID's. The keypoints assoiciated with the boxes are noted down and the best match is found. 
+- Solution: To accomplish this task, I have taken help of "multimap" function as suggestd in the classroom to store the bouding box ID's. The keypoints assoiciated with the boxes are noted down and the best match is found. 
 code : Line 261-307: camFusion_student.cpp 
 
 **FP.2 Compute Lidar-based TTC
 Criteria: Compute the time-to-collision in second for all matched 3D objects using only Lidar measurements from the matched bounding boxes between current and previous frame.**
 
--Solution: From the classroom understanding, Vehicle with Lidar mounted will take the closest point in from it to measure the distance between itself and the preceding vehicles. But when we look into the Lidar points on the preceding vehicle, W ecan observe soem unwanted erroneous points close to the point of interest. When we try to calculate the closest points, error might occur. To avoid this, I have chosen a range in y direction and taken 150 closest points on the preceding vehicle and calculated the mean of all the points. This led to the reduction in the error. 
+- Solution: From the classroom understanding, Vehicle with Lidar mounted will take the closest point in from it to measure the distance between itself and the preceding vehicles. But when we look into the Lidar points on the preceding vehicle, W ecan observe soem unwanted erroneous points close to the point of interest. When we try to calculate the closest points, error might occur. To avoid this, I have chosen a range in y direction and taken 150 closest points on the preceding vehicle and calculated the mean of all the points. This led to the reduction in the error. 
 
 **FP.3 Associate Keypoint Correspondences with Bounding Boxes
 Criteria: Prepare the TTC computation based on camera measurements by associating keypoint correspondences to the bounding boxes which enclose them. All matches which satisfy this condition must be added to a vector in the respective bounding box.**
 
--Solution: A looping concept is implemented to achieve this. First, all the keypoints within the box are found. Then the Euclidean --distance measure is applied and mean is found. At the end, again a loop is created to remove the matches that are far from the mean -value calculated.
+- Solution: A looping concept is implemented to achieve this. First, all the keypoints within the box are found. Then the Euclidean --distance measure is applied and mean is found. At the end, again a loop is created to remove the matches that are far from the mean -value calculated.
 
 **FP.4 Compute Camera-based TTC
 Criteria: Compute the time-to-collision in second for all matched 3D objects using only keypoint correspondences from the matched bounding boxes between current and previous frame.**
 
--Solution: TTC = From classroom understanding, We now how height H of the preceding vehicle can be mapped into the image plane using perspective projection. It is obvious that there is a geometric relation between h, H, d and the focal length f. We could use the distance between all keypoints on the vehicle relative to each other to compute a robust estimate of the height ratio in TTC equation. The ratio of all relative distances between each other can be used to compute a reliable TTC estimate by replacing the height ratios with the mean of all distance ratios. 
+- Solution: TTC = From classroom understanding, We now how height H of the preceding vehicle can be mapped into the image plane using perspective projection. It is obvious that there is a geometric relation between h, H, d and the focal length f. We could use the distance between all keypoints on the vehicle relative to each other to compute a robust estimate of the height ratio in TTC equation. The ratio of all relative distances between each other can be used to compute a reliable TTC estimate by replacing the height ratios with the mean of all distance ratios. 
 Like the lidar TTC estimation, this function uses the median distance ratio to avoid the impact of outliers. Unfortunately this approach is still vulnerable to wild miscalculations (-inf, NaN, etc.) if there are too many mismatched keypoints. 
  
- -*TTC = -(1.0 / frameRate) / (1 - meanDistanceRatio);
+ - *TTC = -(1.0 / frameRate) / (1 - meanDistanceRatio);
 
 **Part II: Performance Evaluation
 
 **FP.5 Performance Evaluation 1
 Criteria: Find examples where the TTC estimate of the Lidar sensor does not seem plausible. Describe your observations and provide a sound argumentation why you think this happened.
 
--Solution: I had got few hiccups in the Lidar TTC but later I removed them by this: 
+- Solution: I had got few hiccups in the Lidar TTC but later I removed them by this: 
 From the equations below, the shortest distance to preceding car from previous data frame, might have been influenced by some point cloud outliers, resulting in shorter distance than the actual tailgate. Initially I had used 30 closest Lidar points to calculate the mean of closest points inorder to remove utliers. But later I had increased it to 100 then 140. As I increase this number, the TTC time has decreasedby almost 10 seconds compered to previous one. 
 
--*TTC = currentMeanDistance * (1.0 / frameRate) / (previousMeanDistance - currentMeanDistance);
+- *TTC = currentMeanDistance * (1.0 / frameRate) / (previousMeanDistance - currentMeanDistance);
 
 
 **FP.6 Performance Evaluation 2
 Criteria: Run several detector/descriptor combinations and look at the differences in TTC estimation. Find out which methods perform best and also include several examples where camera-based TTC estimation is way off. As with Lidar, describe your observations again and also look into potential reasons.
 
--Solution: I had taken the top 3 detector -descriptor combinations from the mid term project to accomplish the above tasks.
+- Solution: I had taken the top 3 detector -descriptor combinations from the mid term project to accomplish the above tasks.
 
         DETECTOR/DESCRIPTOR 	    NUMBER OF KEYPOINTS 	    TIME
         FAST+BRIEF 	                1099 keypoints             	1.771 ms
         FAST+ORB 	                1071 keypoints 	            1.922 ms
         FAST+BRISK 	                899 keypoints 	            3.045 ms
 
--From the below table, One can observe that the CameraTTC are way off than the Lidar points in 90% of the frames except for few frames. Out of 3 combinations, FAST-BRISK performs better than other two.
+- From the below table, One can observe that the CameraTTC are way off than the Lidar points in 90% of the frames except for few frames. Out of 3 combinations, FAST-BRISK performs better than other two.
 
   Detector   Descriptor   LidarTTC  CameraTTC
     FAST		BRISK		0.00s	0.00s
