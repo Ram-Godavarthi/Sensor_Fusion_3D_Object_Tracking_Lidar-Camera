@@ -41,7 +41,7 @@ Criteria: Run several detector/descriptor combinations and look at the differenc
 - Solution: I had taken the top 3 detector -descriptor combinations from the mid term project to accomplish the above tasks.
 
         DETECTOR/DESCRIPTOR 	    NUMBER OF KEYPOINTS 	     TIME
-        FAST+BRIEF 	                1099 keypoints             	1.771 ms
+        FAST+BRIEF 	                1099 keypoints             	 1.771 ms
         FAST+ORB 	                1071 keypoints 	            1.922 ms
         FAST+BRISK 	                899 keypoints 	            3.045 ms
 
