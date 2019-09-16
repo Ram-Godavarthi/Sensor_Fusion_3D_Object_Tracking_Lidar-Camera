@@ -24,10 +24,10 @@ Like the lidar TTC estimation, this function uses the median distance ratio to a
  
  - *TTC = -(1.0 / frameRate) / (1 - meanDistanceRatio);
 
-**Part II: Performance Evaluation
+**Part II: Performance Evaluation**
 
 **FP.5 Performance Evaluation 1
-Criteria: Find examples where the TTC estimate of the Lidar sensor does not seem plausible. Describe your observations and provide a sound argumentation why you think this happened.
+Criteria: Find examples where the TTC estimate of the Lidar sensor does not seem plausible. Describe your observations and provide a sound argumentation why you think this happened.**
 
 - Solution: I had got few hiccups in the Lidar TTC but later I removed them by this: 
 From the equations below, the shortest distance to preceding car from previous data frame, might have been influenced by some point cloud outliers, resulting in shorter distance than the actual tailgate. Initially I had used 30 closest Lidar points to calculate the mean of closest points inorder to remove utliers. But later I had increased it to 100 then 140. As I increase this number, the TTC time has decreasedby almost 10 seconds compered to previous one. 
@@ -45,7 +45,7 @@ Criteria: Run several detector/descriptor combinations and look at the differenc
         FAST+ORB 	                1071 keypoints 	            1.922 ms
         FAST+BRISK 	                899 keypoints 	            3.045 ms
 
-- From the below table, One can observe that the CameraTTC are way off than the Lidar points in 90% of the frames except for few frames. Out of 3 combinations, FAST-BRISK performs better than other two.
+- From the below table, One can observe that the CameraTTC are way off than the Lidar points in 90% of the frames except for few frames. Out of 3 combinations, FAST-BRISK performs better than other two.- 
 
   Detector   Descriptor   LidarTTC  CameraTTC
     FAST		BRISK		0.00s	0.00s
