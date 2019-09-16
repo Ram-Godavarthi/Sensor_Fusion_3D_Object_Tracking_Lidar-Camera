@@ -22,7 +22,7 @@ Criteria: Compute the time-to-collision in second for all matched 3D objects usi
 - Solution: TTC = From classroom understanding, We now how height H of the preceding vehicle can be mapped into the image plane using perspective projection. It is obvious that there is a geometric relation between h, H, d and the focal length f. We could use the distance between all keypoints on the vehicle relative to each other to compute a robust estimate of the height ratio in TTC equation. The ratio of all relative distances between each other can be used to compute a reliable TTC estimate by replacing the height ratios with the mean of all distance ratios. 
 Like the lidar TTC estimation, this function uses the median distance ratio to avoid the impact of outliers. Unfortunately this approach is still vulnerable to wild miscalculations (-inf, NaN, etc.) if there are too many mismatched keypoints. 
  
- - *TTC = -(1.0 / frameRate) / (1 - meanDistanceRatio);
+ - TTC = -(1.0 / frameRate) / (1 - meanDistanceRatio);
 
 **Part II: Performance Evaluation**
 
@@ -32,7 +32,7 @@ Criteria: Find examples where the TTC estimate of the Lidar sensor does not seem
 - Solution: I had got few hiccups in the Lidar TTC but later I removed them by this: 
 From the equations below, the shortest distance to preceding car from previous data frame, might have been influenced by some point cloud outliers, resulting in shorter distance than the actual tailgate. Initially I had used 30 closest Lidar points to calculate the mean of closest points inorder to remove utliers. But later I had increased it to 100 then 140. As I increase this number, the TTC time has decreasedby almost 10 seconds compered to previous one. 
 
-- *TTC = currentMeanDistance * (1.0 / frameRate) / (previousMeanDistance - currentMeanDistance);
+- TTC = currentMeanDistance * (1.0 / frameRate) / (previousMeanDistance - currentMeanDistance);
 
 
 **FP.6 Performance Evaluation 2
@@ -40,12 +40,13 @@ Criteria: Run several detector/descriptor combinations and look at the differenc
 
 - Solution: I had taken the top 3 detector -descriptor combinations from the mid term project to accomplish the above tasks.
 
-        DETECTOR/DESCRIPTOR 	    NUMBER OF KEYPOINTS 	    TIME
+        DETECTOR/DESCRIPTOR 	    NUMBER OF KEYPOINTS 	     TIME
         FAST+BRIEF 	                1099 keypoints             	1.771 ms
         FAST+ORB 	                1071 keypoints 	            1.922 ms
         FAST+BRISK 	                899 keypoints 	            3.045 ms
 
-- From the below table, One can observe that the CameraTTC are way off than the Lidar points in 90% of the frames except for few frames. Out of 3 combinations, FAST-BRISK performs better than other two.- 
+- From the below table, One can observe that the CameraTTC are way off than the Lidar points in 90% of the frames except for few frames. Out of 3 combinations, FAST-BRISK performs better than other two. 
+
 
   Detector   Descriptor   LidarTTC  CameraTTC
     FAST		BRISK		0.00s	0.00s
