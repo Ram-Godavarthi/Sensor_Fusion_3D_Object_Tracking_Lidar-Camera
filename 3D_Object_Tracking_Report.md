@@ -49,13 +49,13 @@ Criteria: Run several detector/descriptor combinations and look at the differenc
 
 **Below table shows the TTC with Lidar and Camera of three different descriptors **
 
-    Detector   Descriptor   LidarTTC  CameraTTC
+    Detector   Descriptor    LidarTTC  CameraTTC
     FAST		BRISK		0.00s	0.00s
     FAST		BRISK		13.18s	12.30s
     FAST		BRISK		14.52s	12.35s
     FAST		BRISK		23.75s	16.62s
     FAST		BRISK		14.98s	12.89s
-    FAST		BRISK		11.56s	#NAME?
+    FAST		BRISK		11.56s	#NAN
     FAST		BRISK		12.40s	13.04s
     FAST		BRISK		18.39s	12.04s
     FAST		BRISK		20.40s	11.41s
@@ -75,7 +75,7 @@ Criteria: Run several detector/descriptor combinations and look at the differenc
     FAST		BRIEF		14.52s	13.01s
     FAST		BRIEF		23.75s	14.82s
     FAST		BRIEF		14.98s	13.67s
-    FAST		BRIEF		11.56s	#NAME?
+    FAST		BRIEF		11.56s	#NAN
     FAST		BRIEF		12.40s	41.78s
     FAST		BRIEF		18.39s	12.76s
     FAST		BRIEF		20.40s	12.77s
@@ -95,7 +95,7 @@ Criteria: Run several detector/descriptor combinations and look at the differenc
     FAST		ORB		14.52s	12.93s
     FAST		ORB		23.75s	16.63s
     FAST		ORB		14.98s	14.07s
-    FAST		ORB		11.56s	#NAME?
+    FAST		ORB		11.56s	#NAN
     FAST		ORB		12.40s	55.98s
     FAST		ORB		18.39s	12.39s
     FAST		ORB		20.40s	12.19s
