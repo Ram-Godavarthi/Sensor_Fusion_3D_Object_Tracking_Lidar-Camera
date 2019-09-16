@@ -49,7 +49,7 @@ Criteria: Run several detector/descriptor combinations and look at the differenc
 
 **Below table shows the TTC with Lidar and Camera of three different descriptors **
 
-  Detector   Descriptor   LidarTTC  CameraTTC
+    Detector   Descriptor   LidarTTC  CameraTTC
     FAST		BRISK		0.00s	0.00s
     FAST		BRISK		13.18s	12.30s
     FAST		BRISK		14.52s	12.35s
