@@ -47,6 +47,7 @@ Criteria: Run several detector/descriptor combinations and look at the differenc
 
 - From the below table, One can observe that the CameraTTC are way off than the Lidar points in 90% of the frames except for few frames. Out of 3 combinations, FAST-BRISK performs better than other two. 
 
+**Below table shows the TTC with Lidar and Camera of three different descriptors 
 
   Detector   Descriptor   LidarTTC  CameraTTC
     FAST		BRISK		0.00s	0.00s
